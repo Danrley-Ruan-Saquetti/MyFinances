@@ -1,111 +1,69 @@
 window.onload = () => {
-	const btnDespesa = document.getElementById('btnDespesa');
-	const btnRenda = document.getElementById('btnRenda');
 	const btnExcluir = document.getElementById('btnExcluir');
 	const btnIncluir = document.getElementById('btnIncluir');
 	const boxCategorias = document.getElementById('boxCategorias');
 
-	let categorias = [];
 	let selecionadas = [];
 
-	let tipoSelecionado = "Renda";
-
-	function carregarCategorias() {
-		const salvas = localStorage.getItem('categorias');
-
-		categorias = salvas ? JSON.parse(salvas) : [];
-	}
+	let tipoSelecionado = "Despesa";
 
 	function renderCategorias() {
-		carregarCategorias();
+		const categorias = fetchCategorias().filter(categoria => categoria.tipo == tipoSelecionado);
 
-		const filtradas = categorias.filter(cat => cat.tipo === tipoSelecionado);
-
-		if (filtradas.length === 0) {
-			boxCategorias.innerHTML = '<div class="categoria-lista"><p style="color:#aaa; text-align:center;">Nenhuma categoria cadastrada.</p></div>';
+		if (categorias.length == 0) {
+			boxCategorias.innerHTML = '<span class="text-light text-center align-baseline py-2">Nenhuma categoria cadastrada.</span>';
 			selecionadas = [];
 			btnExcluir.disabled = true;
 			return;
 		}
 
-		let html = '<div class="categoria-lista"><ul>';
-
-		filtradas.forEach((cat, idx) => {
-			html += `<li>
-				<input type="checkbox" class="form-check-input me-2" data-idx="${cat.nome}" checked>
-				${cat.nome}
+		const listaCategorias = categorias.reduce((listaCategorias, categoria) => {
+			return listaCategorias + `<li class="list-group-item d-flex gap-1 bg-light-subtle text-white border border-secondary list-group-item-action" data-id="${categoria.nome}">
+				<input class="form-check-input me-1" type="checkbox" value="${categoria.nome}" id="categoria-${categoria.nome}">
+    		<label class="form-check-label w-100" role="button" for="categoria-${categoria.nome}">${categoria.nome}</label>
 			</li>`;
-		});
+		}, '');
 
-		html += '</ul></div>';
+		boxCategorias.innerHTML = `${listaCategorias}`;
 
-		boxCategorias.innerHTML = html;
+		selecionadas = [];
 
-		selecionadas = filtradas.map(cat => cat.nome);
+		btnExcluir.disabled = true;
 
-		btnExcluir.disabled = false;
-
-		document.querySelectorAll('input[type=checkbox]').forEach(chk => {
+		boxCategorias.querySelectorAll('input[type=checkbox]').forEach(chk => {
 			chk.addEventListener('change', function () {
-				const nome = this.getAttribute('data-idx');
-
 				if (this.checked) {
-					if (!selecionadas.includes(nome)) selecionadas.push(nome);
+					selecionadas.push(this.value);
 				} else {
-					selecionadas = selecionadas.filter(n => n !== nome);
+					selecionadas = selecionadas.filter(n => n !== this.value);
 				}
 
-				btnExcluir.disabled = selecionadas.length === 0;
+				btnExcluir.disabled = selecionadas.length == 0;
 			});
 		});
 	}
 
-	btnDespesa.onclick = () => {
-		tipoSelecionado = "Despesa";
+	function fetchCategorias() {
+		const salvas = localStorage.getItem('categorias');
 
-		btnDespesa.classList.add('ativo');
-		btnDespesa.innerHTML = 'Despesa <span class="check-icon">&#10003;</span>';
-		btnRenda.classList.remove('ativo');
-		btnRenda.innerHTML = 'Renda';
-
-		renderCategorias();
-	};
-
-	btnRenda.onclick = () => {
-		tipoSelecionado = "Renda";
-
-		btnRenda.classList.add('ativo');
-		btnRenda.innerHTML = 'Renda <span class="check-icon">&#10003;</span>';
-		btnDespesa.classList.remove('ativo');
-		btnDespesa.innerHTML = 'Despesa';
-
-		renderCategorias();
-	};
-
-	let idsParaExcluir = [];
-
-	btnExcluir.onclick = () => {
-		idsParaExcluir = selecionadas.slice();
-		if (idsParaExcluir.length === 0) return;
-		document.getElementById('modalExclusao').style.display = 'flex';
-	};
-
-	document.getElementById('btnFecharModal').onclick = fecharModalExclusao;
-	document.getElementById('btnCancelaExclusao').onclick = fecharModalExclusao;
-
-	function fecharModalExclusao() {
-		document.getElementById('modalExclusao').style.display = 'none';
-		idsParaExcluir = [];
+		return salvas ? JSON.parse(salvas) : [];
 	}
 
-	document.getElementById('btnConfirmaExclusao').onclick = function () {
-		carregarCategorias();
+	document.querySelectorAll("[name='categoria']").forEach(categoriaOption => {
+		categoriaOption.addEventListener('click', () => {
+			tipoSelecionado = categoriaOption.value
+			renderCategorias()
+		})
+	})
 
-		categorias = categorias.filter(cat => !(cat.tipo === tipoSelecionado && idsParaExcluir.includes(cat.nome)));
+	document.getElementById('btnConfirmaExclusao').onclick = function () {
+		const categorias = fetchCategorias().filter(categoria => categoria.tipo != tipoSelecionado && !idsParaExcluir.includes(categoria.nome));
 
 		localStorage.setItem('categorias', JSON.stringify(categorias));
 
-		fecharModalExclusao();
+		const modal = bootstrap.Modal.getInstance(document.getElementById('modalExclusao'));
+		modal.hide();
+
 		renderCategorias();
 	};
 
