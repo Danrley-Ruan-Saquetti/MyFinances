@@ -41,6 +41,7 @@ body {
   outline: none;
   box-shadow: none;
 }
+
 .alternador-btn.ativo {
   background: #fff;
   color: #222;
@@ -48,10 +49,12 @@ body {
   position: relative;
   z-index: 1;
 }
-.alternador-btn + .alternador-btn {
+
+.alternador-btn+.alternador-btn {
   border-radius: 0 24px 24px 0;
   margin-left: -5px;
 }
+
 .check-icon {
   color: #222;
   font-weight: bold;
@@ -63,10 +66,12 @@ body {
   width: 100%;
   max-width: 330px;
 }
+
 .form-label-categoria {
   margin-bottom: 4px;
   font-size: 1rem;
 }
+
 .input-categoria {
   background: #181818;
   border: 1px solid #444;
@@ -92,6 +97,7 @@ body {
   gap: 14px;
   margin-bottom: 18px;
 }
+
 .btn-acao {
   background: #232323;
   color: #fff;
@@ -104,17 +110,36 @@ body {
   outline: none;
   transition: background 0.15s;
 }
+
 .btn-acao:active,
 .btn-acao:focus {
   background: #323232;
   color: #fff;
 }
+
 .btn-acao:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Menu colado na base do card */
+.btn-light {
+  background: #fff;
+  color: #232323;
+  border: none;
+}
+
+.btn-dark {
+  background: #232323;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.btn-light,
+.btn-dark {
+  min-width: 90px;
+  border-radius: 6px;
+}
+
 .barra-inferior {
   background: #232323;
   display: flex;
@@ -122,13 +147,14 @@ body {
   align-items: center;
   height: 54px;
   border-radius: 12px;
-  margin-top: auto;      /* Faz o menu ir pra base do card */
-  margin-bottom: 20px;   /* Espaço embaixo do menu */
+  margin-top: auto;
+  margin-bottom: 20px;
   width: 100%;
   max-width: 340px;
   box-shadow: none;
   gap: 38px;
 }
+
 .nav-btn {
   background: none;
   border: none;
@@ -141,8 +167,44 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .nav-btn:active,
 .nav-btn:focus {
   background: #333333;
   color: #b0b0b0;
+}
+
+.modal-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content-custom {
+  background: #232323;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px #0006;
+  padding: 28px 24px 20px 24px;
+  min-width: 300px;
+  max-width: 90vw;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
 }

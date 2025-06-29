@@ -16,64 +16,6 @@
       color: #fff;
     }
 
-    .tela-categorias {
-      width: 100vw;
-      max-width: 400px;
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 24px 0 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    .titulo-categorias {
-      font-size: 1.3rem;
-      text-align: center;
-      margin-bottom: 18px;
-    }
-
-    .alternador-categoria {
-      display: flex;
-      justify-content: center;
-      background: none;
-      border: none;
-      margin-bottom: 16px;
-      gap: 0;
-    }
-
-    .alternador-btn {
-      border: none;
-      border-radius: 24px 0 0 24px;
-      background: #222;
-      color: #fff;
-      padding: 6px 22px;
-      font-size: 1.05rem;
-      transition: background 0.15s, color 0.15s;
-      outline: none;
-      box-shadow: none;
-    }
-
-    .alternador-btn.ativo {
-      background: #fff;
-      color: #222;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
-    }
-
-    .alternador-btn+.alternador-btn {
-      border-radius: 0 24px 24px 0;
-      margin-left: -5px;
-    }
-
-    .check-icon {
-      color: #222;
-      font-weight: bold;
-      margin-left: 3px;
-    }
-
     .box-categorias {
       background: #232323;
       border-radius: 12px;
@@ -107,134 +49,6 @@
       width: 18px;
       height: 18px;
     }
-
-    .linha-divisoria {
-      border: none;
-      border-top: 1px solid #383838;
-      margin: 14px 0 12px 0;
-    }
-
-    .botoes-acao {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .btn-acao {
-      background: #232323;
-      color: #fff;
-      border-radius: 8px;
-      border: none;
-      padding: 7px 24px;
-      font-size: 1rem;
-      font-weight: 500;
-      box-shadow: none;
-      outline: none;
-      transition: background 0.15s;
-    }
-
-    .btn-acao:active,
-    .btn-acao:focus {
-      background: #323232;
-      color: #fff;
-    }
-
-    .btn-acao:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* MODAL */
-    .modal-custom {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal-content-custom {
-      background: #232323;
-      color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 6px 32px #0006;
-      padding: 28px 24px 20px 24px;
-      min-width: 300px;
-      max-width: 90vw;
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    .btn-light {
-      background: #fff;
-      color: #232323;
-      border: none;
-    }
-
-    .btn-dark {
-      background: #232323;
-      color: #fff;
-      border: 1px solid #fff;
-    }
-
-    .btn-light,
-    .btn-dark {
-      min-width: 90px;
-      border-radius: 6px;
-    }
-
-    /* Menu colado na base do card */
-    .barra-inferior {
-      background: #232323;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 54px;
-      border-radius: 12px;
-      margin-top: auto;
-      /* Faz o menu ir pra base do card */
-      margin-bottom: 20px;
-      /* Espaço embaixo do menu */
-      width: 100%;
-      max-width: 340px;
-      box-shadow: none;
-      gap: 38px;
-    }
-
-    .nav-btn {
-      background: none;
-      border: none;
-      color: #ededed;
-      font-size: 1.7rem;
-      padding: 0 16px;
-      border-radius: 10px;
-      transition: background 0.13s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-btn:active,
-    .nav-btn:focus {
-      background: #333333;
-      color: #b0b0b0;
-    }
   </style>
 </head>
 
@@ -251,14 +65,12 @@
       <button class="btn-acao" id="btnExcluir"><i class="bi bi-trash"></i> Excluir</button>
       <button class="btn-acao" id="btnIncluir"><i class="bi bi-plus-circle"></i> Inserir nova</button>
     </div>
-    <!-- Menu centralizado na base do card -->
     <nav class="barra-inferior">
       <button class="nav-btn"><i class="bi bi-pencil"></i></button>
       <button class="nav-btn"><i class="bi bi-calendar"></i></button>
       <button class="nav-btn"><i class="bi bi-gear"></i></button>
     </nav>
   </div>
-  <!-- Modal de confirmação de exclusão -->
   <div id="modalExclusao" class="modal-custom" style="display:none;">
     <div class="modal-content-custom">
       <button class="modal-close" id="btnFecharModal">&times;</button>
@@ -301,10 +113,8 @@
       });
       html += '</ul></div>';
       boxCategorias.innerHTML = html;
-      // Seleciona todas como padrão
       selecionadas = filtradas.map(cat => cat.nome);
       btnExcluir.disabled = false;
-      // Checkbox listeners
       document.querySelectorAll('input[type=checkbox]').forEach(chk => {
         chk.addEventListener('change', function () {
           const nome = this.getAttribute('data-idx');
@@ -333,7 +143,6 @@
       btnDespesa.innerHTML = 'Despesa';
       renderCategorias();
     };
-    // MODAL
     let idxsParaExcluir = [];
     btnExcluir.onclick = () => {
       idxsParaExcluir = selecionadas.slice();
