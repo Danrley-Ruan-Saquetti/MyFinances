@@ -2,12 +2,14 @@
 <html lang="pt-BR">
 
 <head>
-  <title>Manutenção de Categorias</title>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Manutenção de Categorias</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
   <link rel="stylesheet" href="../styles/styles.css">
 
   <style>
@@ -55,118 +57,44 @@
 <body>
   <div class="tela-categorias">
     <div class="titulo-categorias">Manutenção de Categorias</div>
+
     <div class="alternador-categoria" id="toggleGroup">
       <button class="alternador-btn" id="btnDespesa">Despesa</button>
       <button class="alternador-btn ativo" id="btnRenda">Renda <span class="check-icon">&#10003;</span></button>
     </div>
+
     <div id="boxCategorias" class="box-categorias"></div>
+
     <hr class="linha-divisoria">
+
     <div class="botoes-acao">
       <button class="btn-acao" id="btnExcluir"><i class="bi bi-trash"></i> Excluir</button>
       <button class="btn-acao" id="btnIncluir"><i class="bi bi-plus-circle"></i> Inserir nova</button>
     </div>
+
     <nav class="barra-inferior">
       <button class="nav-btn"><i class="bi bi-pencil"></i></button>
       <button class="nav-btn"><i class="bi bi-calendar"></i></button>
       <button class="nav-btn"><i class="bi bi-gear"></i></button>
     </nav>
   </div>
+
   <div id="modalExclusao" class="modal-custom" style="display:none;">
     <div class="modal-content-custom">
       <button class="modal-close" id="btnFecharModal">&times;</button>
+
       <h4 style="margin-bottom:12px;">Confirmar exclusão</h4>
+
       <p>Deseja realmente excluir a categoria selecionada?</p>
+
       <div class="d-flex justify-content-end gap-2 mt-3">
         <button id="btnConfirmaExclusao" class="btn btn-light">Confirmar</button>
         <button id="btnCancelaExclusao" class="btn btn-dark">Cancelar</button>
       </div>
     </div>
   </div>
-  <script>
-    const btnDespesa = document.getElementById('btnDespesa');
-    const btnRenda = document.getElementById('btnRenda');
-    const btnExcluir = document.getElementById('btnExcluir');
-    const btnIncluir = document.getElementById('btnIncluir');
-    const boxCategorias = document.getElementById('boxCategorias');
-    let tipoSelecionado = "Renda";
-    let categorias = [];
-    let selecionadas = [];
-    function carregarCategorias() {
-      const salvas = localStorage.getItem('categorias');
-      categorias = salvas ? JSON.parse(salvas) : [];
-    }
-    function renderCategorias() {
-      carregarCategorias();
-      const filtradas = categorias.filter(cat => cat.tipo === tipoSelecionado);
-      if (filtradas.length === 0) {
-        boxCategorias.innerHTML = '<div class="categoria-lista"><p style="color:#aaa; text-align:center;">Nenhuma categoria cadastrada.</p></div>';
-        selecionadas = [];
-        btnExcluir.disabled = true;
-        return;
-      }
-      let html = '<div class="categoria-lista"><ul>';
-      filtradas.forEach((cat, idx) => {
-        html += `<li>
-          <input type="checkbox" class="form-check-input me-2" data-idx="${cat.nome}" checked>
-          ${cat.nome}
-        </li>`;
-      });
-      html += '</ul></div>';
-      boxCategorias.innerHTML = html;
-      selecionadas = filtradas.map(cat => cat.nome);
-      btnExcluir.disabled = false;
-      document.querySelectorAll('input[type=checkbox]').forEach(chk => {
-        chk.addEventListener('change', function () {
-          const nome = this.getAttribute('data-idx');
-          if (this.checked) {
-            if (!selecionadas.includes(nome)) selecionadas.push(nome);
-          } else {
-            selecionadas = selecionadas.filter(n => n !== nome);
-          }
-          btnExcluir.disabled = selecionadas.length === 0;
-        });
-      });
-    }
-    btnDespesa.onclick = () => {
-      tipoSelecionado = "Despesa";
-      btnDespesa.classList.add('ativo');
-      btnDespesa.innerHTML = 'Despesa <span class="check-icon">&#10003;</span>';
-      btnRenda.classList.remove('ativo');
-      btnRenda.innerHTML = 'Renda';
-      renderCategorias();
-    };
-    btnRenda.onclick = () => {
-      tipoSelecionado = "Renda";
-      btnRenda.classList.add('ativo');
-      btnRenda.innerHTML = 'Renda <span class="check-icon">&#10003;</span>';
-      btnDespesa.classList.remove('ativo');
-      btnDespesa.innerHTML = 'Despesa';
-      renderCategorias();
-    };
-    let idxsParaExcluir = [];
-    btnExcluir.onclick = () => {
-      idxsParaExcluir = selecionadas.slice();
-      if (idxsParaExcluir.length === 0) return;
-      document.getElementById('modalExclusao').style.display = 'flex';
-    };
-    document.getElementById('btnFecharModal').onclick =
-      document.getElementById('btnCancelaExclusao').onclick = fecharModalExclusao;
-    function fecharModalExclusao() {
-      document.getElementById('modalExclusao').style.display = 'none';
-      idxsParaExcluir = [];
-    }
-    document.getElementById('btnConfirmaExclusao').onclick = function () {
-      carregarCategorias();
-      categorias = categorias.filter(cat => !(cat.tipo === tipoSelecionado && idxsParaExcluir.includes(cat.nome)));
-      localStorage.setItem('categorias', JSON.stringify(categorias));
-      fecharModalExclusao();
-      renderCategorias();
-    };
-    btnIncluir.onclick = () => {
-      window.location.href = "cadastro_categorias.html";
-    };
-    renderCategorias();
-  </script>
+
+  <script src="../js/manutencao.js"></script>
 </body>
 
 </html>
