@@ -23,8 +23,33 @@ ol {
 
 /* BOOTSTRAP Extends */
 
-#boxCategorias .list-group-item {
+.list-group .list-group-item {
   border-left: none !important;
   border-right: none !important;
   border-top: none !important;
+}
+
+.fc .fc-header-toolbar {
+  justify-content: space-between;
+}
+
+.fc .fc-view {
+  --bs-link-color-rgb: --bs-light;
+  --bs-link-hover-color-rgb: 52, 45, 255;
+}
+
+.fc .fc-button-primary {
+  --fc-button-bg-color: #1e1e1e;
+  --fc-button-border-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  --fc-button-active-bg-color: #565e64 !important;
+  --fc-button-active-border-color: #51585e !important;
+}
+
+.fc .fc-button-primary:hover {
+  --fc-button-hover-bg-color: #565e64 !important;
+  --fc-button-hover-border-color: #51585e !important;
 }
