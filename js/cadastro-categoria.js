@@ -26,11 +26,11 @@ window.onload = () => {
 		mensagem.textContent = "Categoria salva!";
 
 		setTimeout(() => {
-			navigateTo('manutencao.html');
+			navigateTo('consulta-categoria.html');
 		}, 800);
 	};
 
 	btnCancelar.onclick = () => {
-		navigateTo('manutencao.html');
+		navigateTo('consulta-categoria.html');
 	};
 }

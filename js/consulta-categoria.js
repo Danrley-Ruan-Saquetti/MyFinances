@@ -3,7 +3,7 @@ window.onload = () => {
 
 	const btnExcluir = document.getElementById('btnExcluir');
 	const btnIncluir = document.getElementById('btnIncluir');
-	const boxCategorias = document.getElementById('boxCategorias');
+	const listCategorias = document.getElementById('listCategorias');
 
 	let selecionadas = [];
 
@@ -16,7 +16,7 @@ window.onload = () => {
 		const categorias = categoriaRepository.getAll().filter(categoria => categoria.tipo == tipoSelecionado);
 
 		if (categorias.length == 0) {
-			boxCategorias.innerHTML = '<span class="text-light text-center align-baseline py-2">Nenhuma categoria cadastrada.</span>';
+			listCategorias.innerHTML = '<span class="text-light text-center align-baseline py-2">Nenhuma categoria cadastrada.</span>';
 			return;
 		}
 
@@ -27,9 +27,9 @@ window.onload = () => {
 			</li>`;
 		}, '');
 
-		boxCategorias.innerHTML = `${listaCategorias}`;
+		listCategorias.innerHTML = `${listaCategorias}`;
 
-		boxCategorias.querySelectorAll('input[type=checkbox]').forEach(chk => {
+		listCategorias.querySelectorAll('input[type=checkbox]').forEach(chk => {
 			chk.addEventListener('change', function () {
 				if (this.checked) {
 					selecionadas.push(this.value);
