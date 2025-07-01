@@ -11,7 +11,7 @@ class LocalStorageRepository {
 	}
 
 	getById(id) {
-		return this._getAllData().find(item => item.id === id) || null
+		return this._getAllData().find(item => item.id == id) || null
 	}
 
 	create(data) {
@@ -26,9 +26,9 @@ class LocalStorageRepository {
 
 	update(id, data) {
 		const all = this._getAllData()
-		const index = all.findIndex(item => item.id === id)
+		const index = all.findIndex(item => item.id == id)
 
-		if (index === -1) {
+		if (index < 0) {
 			return null
 		}
 
@@ -44,9 +44,9 @@ class LocalStorageRepository {
 
 		const originalLength = all.length
 
-		all = all.filter(item => item.id !== id)
+		all = all.filter(item => item.id != id)
 
-		if (all.length === originalLength) {
+		if (all.length == originalLength) {
 			return false
 		}
 
@@ -63,7 +63,7 @@ class LocalStorageRepository {
 	_getNextId() {
 		const next = +(localStorage.getItem(this.idKey) || 0) + 1
 
-		localStorage.setItem(this.idKey, `${next}`)
+		localStorage.setItem(this.idKey, next)
 
 		return next
 	}
