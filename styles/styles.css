@@ -8,7 +8,6 @@ ol {
   padding-left: 1rem;
 }
 
-/* BOOTSTRAP Extends */
 :root {
   --bs-light-bg-subtle: #1e1e1e;
 }
@@ -20,8 +19,6 @@ ol {
 .btn-secondary {
   --bs-btn-bg: #1e1e1e;
 }
-
-/* BOOTSTRAP Extends */
 
 .list-group .list-group-item {
   border-left: none !important;
@@ -52,4 +49,17 @@ ol {
 .fc .fc-button-primary:hover {
   --fc-button-hover-bg-color: #565e64 !important;
   --fc-button-hover-border-color: #51585e !important;
+}
+
+.navbar .nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+}
+
+.navbar .nav-item.active {
+  background-color: #565e64;
+  border-radius: 50%;
 }
