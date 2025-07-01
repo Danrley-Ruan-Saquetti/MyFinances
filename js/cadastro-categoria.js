@@ -1,4 +1,6 @@
 window.onload = () => {
+	const categoriaRepository = new LocalStorageRepository('categoria')
+
 	const btnGravar = document.getElementById('btnGravar');
 	const btnCancelar = document.getElementById('btnCancelar');
 	const inputNome = document.getElementById('nomeCategoria');
@@ -15,20 +17,10 @@ window.onload = () => {
 			return;
 		}
 
-		let categorias = [];
-
-		const salvas = localStorage.getItem('categorias');
-
-		if (salvas) {
-			categorias = JSON.parse(salvas);
-		}
-
-		categorias.push({
+		categoriaRepository.create({
 			nome,
 			tipo: document.querySelector("[name='categoria']:checked").value
-		});
-
-		localStorage.setItem('categorias', JSON.stringify(categorias));
+		})
 
 		mensagem.style.color = "#4caf50";
 		mensagem.textContent = "Categoria salva!";
