@@ -68,7 +68,7 @@ window.onload = () => {
 	};
 
 	btnIncluir.onclick = () => {
-		window.location.href = "cadastro_categorias.html";
+		navigateTo("cadastro_categorias.html");
 	};
 
 	renderCategorias();

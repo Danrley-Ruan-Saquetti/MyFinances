@@ -34,11 +34,11 @@ window.onload = () => {
 		mensagem.textContent = "Categoria salva!";
 
 		setTimeout(() => {
-			window.location.href = 'manutencao.html';
+			navigateTo('manutencao.html');
 		}, 800);
 	};
 
 	btnCancelar.onclick = () => {
-		window.location.href = 'manutencao.html';
+		navigateTo('manutencao.html');
 	};
 }
