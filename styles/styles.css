@@ -51,6 +51,10 @@ ol {
   --fc-button-hover-border-color: #51585e !important;
 }
 
+.calendar {
+  max-width: 30rem;
+}
+
 .navbar .nav-item {
   display: flex;
   justify-content: center;
