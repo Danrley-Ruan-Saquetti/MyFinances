@@ -1,3 +1,3 @@
 # MyFinances
 
-Projeto da UDESC da matéria de Desenvolvimentod e Interface de Usuário.
+Projeto da UDESC da matéria de Desenvolvimento de Interface de Usuário.
